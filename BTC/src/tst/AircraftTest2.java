@@ -244,14 +244,8 @@ public class AircraftTest2 {
 
 		testAircraft.alterPath(1, airspaceWaypoints[2]);
 
-		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[1]), 0,
-				0);
-
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[2]), 0,
 				1);
-
-		assertEquals(testAircraft.flightPathContains(locationWaypoints[0]), 2,
-				0);
 
 	}
 
