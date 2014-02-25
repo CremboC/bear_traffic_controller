@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import scn.Demo;
 import cls.Aircraft;
 import cls.Airport;
 import cls.Flightplan;
@@ -26,25 +27,19 @@ public class AircraftTest2 {
 
 	public ArrayList<Aircraft> aircraftInAirspace;
 
-	public final Waypoint[] locationWaypoints = new Waypoint[] {
+	public final Waypoint[] locationWaypoints = new Waypoint[]{
 	/* A set of Waypoints which are origin / destination points */
 
 			// top left
-			new Waypoint(10, 10, WaypointType.ENTRY_EXIT, "Test Entry 1"),
+			new Waypoint(10, 10, WaypointType.ENTRY_EXIT, "Entry"),
 
 			// bottom left
-			new Waypoint(10, 1000, WaypointType.ENTRY_EXIT, "Test Entry 2"),
-
-			// top right
-			new Waypoint(1000, 10, WaypointType.ENTRY_EXIT, "Test Entry 3"),
-
-			// bottom right
-			new Waypoint(1000, 1000, WaypointType.ENTRY_EXIT, "Test Entry 4"),
+			new Waypoint(10, 1000, WaypointType.ENTRY_EXIT, "Exit"),
 
 			// The airport
-			airport = new Airport(500, 500, "Airport"), };
+			airport = new Airport(500, 500, "Airport"),};
 
-	public Waypoint[] airspaceWaypoints = new Waypoint[] {
+	public Waypoint[] airspaceWaypoints = new Waypoint[]{
 
 			// airspace waypoints
 			new Waypoint(160, 174), // 0
@@ -59,9 +54,7 @@ public class AircraftTest2 {
 			// pathfinding.
 			locationWaypoints[0], // 10
 			locationWaypoints[1], // 11
-			locationWaypoints[2], // 12
-			locationWaypoints[3], // 13
-			locationWaypoints[4], // 14 - Airport
+			locationWaypoints[2], // 14 - Airport
 	};
 
 	// All aircraft that land must pass through this waypoint.
@@ -91,18 +84,18 @@ public class AircraftTest2 {
 
 	@Before
 	public void setUp() throws Exception {
-		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[4]
+		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[2]
 				.position().x() - 100,
-				locationWaypoints[4].position().y() - 100));
-		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[4]
+				locationWaypoints[2].position().y() - 100));
+		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[2]
 				.position().x() + 100,
-				locationWaypoints[4].position().y() - 100));
-		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[4]
+				locationWaypoints[2].position().y() - 100));
+		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[2]
 				.position().x() + 100,
-				locationWaypoints[4].position().y() + 100));
-		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[4]
+				locationWaypoints[2].position().y() + 100));
+		holdingWaypoints.add(new HoldingWaypoint(locationWaypoints[2]
 				.position().x() - 100,
-				locationWaypoints[4].position().y() + 100));
+				locationWaypoints[2].position().y() + 100));
 
 		// Initialise values of setNextWaypoint.
 		holdingWaypoints.get(0).setNextWaypoint(holdingWaypoints.get(1));
@@ -112,11 +105,10 @@ public class AircraftTest2 {
 
 		aircraftInAirspace = new ArrayList<Aircraft>();
 
-		testAircraft = new Aircraft("testAircraft", null,
-				32 + (int) (10 * Math.random()), 10, takeoffWaypoint,
-				aircraftInAirspace, new Flightplan(locationWaypoints[0],
-						locationWaypoints[1], airspaceWaypoints,
-						holdingWaypoints));
+		testAircraft = new Aircraft("testAircraft", null, 10,
+				Demo.DIFFICULTY_HARD, takeoffWaypoint, aircraftInAirspace,
+				new Flightplan(locationWaypoints[0], locationWaypoints[1],
+						airspaceWaypoints, holdingWaypoints));
 	}
 
 	@After
@@ -136,6 +128,7 @@ public class AircraftTest2 {
 
 	@Test
 	public void testName() {
+
 		assertTrue(testAircraft.name().equals("testAircraft"));
 	}
 
@@ -153,11 +146,10 @@ public class AircraftTest2 {
 	public void testIsFinished() {
 		assertFalse(testAircraft.isFinished());
 
-		Aircraft testAircraft2 = new Aircraft("testAircraft", null,
-				32 + (int) (10 * Math.random()), 10, takeoffWaypoint,
-				aircraftInAirspace, new Flightplan(locationWaypoints[0],
-						locationWaypoints[1], airspaceWaypoints,
-						holdingWaypoints));
+		Aircraft testAircraft2 = new Aircraft("testAircraft", null, 10,
+				Demo.DIFFICULTY_HARD, takeoffWaypoint, aircraftInAirspace,
+				new Flightplan(locationWaypoints[0], locationWaypoints[1],
+						airspaceWaypoints, holdingWaypoints));
 
 		ArrayList<Aircraft> testAircrafts = new ArrayList<Aircraft>();
 		testAircrafts.add(testAircraft);
@@ -216,7 +208,7 @@ public class AircraftTest2 {
 
 	@Test
 	public void testSpeed() {
-		assertEquals(testAircraft.speed(), 20.0, 0.1);
+		assertEquals(testAircraft.speed(), 30.0, 0.1);
 	}
 
 	@Test
@@ -294,11 +286,10 @@ public class AircraftTest2 {
 
 	@Test
 	public void testUpdateCollisions() {
-		Aircraft testAircraft2 = new Aircraft("testAircraft", null,
-				32 + (int) (10 * Math.random()), 10, takeoffWaypoint,
-				aircraftInAirspace, new Flightplan(locationWaypoints[0],
-						locationWaypoints[1], airspaceWaypoints,
-						holdingWaypoints));
+		Aircraft testAircraft2 = new Aircraft("testAircraft", null, 10,
+				Demo.DIFFICULTY_HARD, takeoffWaypoint, aircraftInAirspace,
+				new Flightplan(locationWaypoints[0], locationWaypoints[1],
+						airspaceWaypoints, holdingWaypoints));
 
 		ArrayList<Aircraft> testAircrafts = new ArrayList<Aircraft>();
 		testAircrafts.add(testAircraft);
