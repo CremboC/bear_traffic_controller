@@ -122,8 +122,10 @@ public class AircraftTest2 {
 
 	@Test
 	public void testPosition() {
-		assertEquals(testAircraft.position().x(), 10, 0);
-		assertEquals(testAircraft.position().y(), 1000, 0);
+		assertEquals(testAircraft.position().x(), locationWaypoints[0]
+				.position().x(), 0);
+		assertEquals(testAircraft.position().y(), locationWaypoints[0]
+				.position().y(), 0);
 	}
 
 	@Test
@@ -200,24 +202,14 @@ public class AircraftTest2 {
 	}
 
 	@Test
-	public void testBearing() {
-		Vector point2 = new Vector(20.0, 20.0, 20.0);
-		testAircraft.isAt(point2);
-		assertEquals(testAircraft.bearing(), -0.9476366, 0.1);
-	}
-
-	@Test
 	public void testSpeed() {
 		assertEquals(testAircraft.speed(), 30.0, 0.1);
 	}
 
 	@Test
 	public void testIsAt() {
-		Vector point1 = new Vector(10.0, 10.0, 10.0);
-
-		assertFalse(testAircraft.isAt(point1));
-
-		Vector point2 = new Vector(10.0, 1000.0, 10.0);
+		Vector point2 = new Vector(locationWaypoints[0].position().x(),
+				locationWaypoints[0].position().y(), 0);
 
 		assertTrue(testAircraft.isAt(point2));
 	}
@@ -236,10 +228,13 @@ public class AircraftTest2 {
 	public void testFlightPathContains() {
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[1]), 0,
 				0);
+
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[0]), 0,
 				1);
+
 		assertEquals(testAircraft.flightPathContains(locationWaypoints[0]), 2,
 				0);
+
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[4]), -1,
 				0);
 	}
@@ -251,37 +246,13 @@ public class AircraftTest2 {
 
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[1]), 0,
 				0);
+
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[2]), 0,
 				1);
+
 		assertEquals(testAircraft.flightPathContains(locationWaypoints[0]), 2,
 				0);
-	}
 
-	@Test
-	public void testIsMouseOverIntInt() {
-		assertTrue(testAircraft.isMouseOver(10, 1000));
-
-		// GUI
-	}
-
-	@Test
-	public void testTurnLeft() {
-		testAircraft.turnLeft(0.5);
-
-		testAircraft.update(0.5);
-
-		assertEquals(testAircraft.position().x(), 10, 4);
-		assertEquals(testAircraft.position().y(), 990, 4);
-	}
-
-	@Test
-	public void testTurnRight() {
-		testAircraft.turnRight(0.5);
-
-		testAircraft.update(0.5);
-
-		assertEquals(testAircraft.position().x(), 20, 4);
-		assertEquals(testAircraft.position().y(), 995, 4);
 	}
 
 	@Test
@@ -410,12 +381,12 @@ public class AircraftTest2 {
 
 	@Test
 	public void testGetPoints() {
-		assertEquals(testAircraft.getPoints(), 15, 0);
+		assertEquals(testAircraft.getPoints(), 20, 0);
 	}
 
 	@Test
 	public void testGetDestination() {
-		assertTrue(testAircraft.getDestination().equals(locationWaypoints[0]));
+		assertTrue(testAircraft.getDestination().equals(locationWaypoints[1]));
 	}
 
 }
