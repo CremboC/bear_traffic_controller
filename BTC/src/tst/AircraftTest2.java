@@ -27,7 +27,7 @@ public class AircraftTest2 {
 
 	public ArrayList<Aircraft> aircraftInAirspace;
 
-	public final Waypoint[] locationWaypoints = new Waypoint[]{
+	public final Waypoint[] locationWaypoints = new Waypoint[] {
 	/* A set of Waypoints which are origin / destination points */
 
 			// top left
@@ -37,9 +37,9 @@ public class AircraftTest2 {
 			new Waypoint(10, 1000, WaypointType.ENTRY_EXIT, "Exit"),
 
 			// The airport
-			airport = new Airport(500, 500, "Airport"),};
+			airport = new Airport(500, 500, "Airport"), };
 
-	public Waypoint[] airspaceWaypoints = new Waypoint[]{
+	public Waypoint[] airspaceWaypoints = new Waypoint[] {
 
 			// airspace waypoints
 			new Waypoint(160, 174), // 0
@@ -226,13 +226,13 @@ public class AircraftTest2 {
 
 	@Test
 	public void testFlightPathContains() {
-		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[1]), 0,
+		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[0]), 0,
 				0);
 
-		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[0]), 0,
+		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[1]), 0,
 				1);
 
-		assertEquals(testAircraft.flightPathContains(locationWaypoints[0]), 2,
+		assertEquals(testAircraft.flightPathContains(locationWaypoints[1]), 2,
 				0);
 
 		assertEquals(testAircraft.flightPathContains(airspaceWaypoints[4]), -1,
